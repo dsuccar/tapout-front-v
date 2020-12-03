@@ -1,6 +1,4 @@
-import { render } from '@testing-library/react';
-import React, { Component, useState, useEffect } from 'react'
-import {Route, Switch, withRouter} from "react-router-dom"
+import React, { useState, useEffect } from 'react'
 import './App.css';
 
 import Discover from "./components/Discover"
@@ -15,43 +13,61 @@ export default function App() { {
   const [users, setUsers] = useState([])
   const [reviews, setReviews] = useState([])
 
-  const getBreweries = () => {
+  const fetchCalls = () => {
     fetch(`http://localhost:3000/breweries`)
     .then(res => res.json())
     .then(breweries => {
       setBreweries(breweries)
     })
-  }
-
-  const getReviews = () => {
-   
     fetch(`http://localhost:3000/reviews`)
     .then(res => res.json())
     .then(reviews => {
       setReviews(reviews)
     })
-  }
-
-  const getUsers = () => {
-   
     fetch(`http://localhost:3000/users`)
     .then(res => res.json())
     .then(users => {
       setUsers(users)
     })
+
   }
 
-  useEffect(getBreweries, [])
+  // const getReviews = () => {
+   
+  //   fetch(`http://localhost:3000/reviews`)
+  //   .then(res => res.json())
+  //   .then(reviews => {
+  //     setReviews(reviews)
+  //   })
+  // }
+
+  // const getUsers = () => {
+   
+  //   fetch(`http://localhost:3000/users`)
+  //   .then(res => res.json())
+  //   .then(users => {
+  //     setUsers(users)
+  //   })
+  // }
+
+  useEffect(fetchCalls, [])
+
 
 
   
-  // console.log("passing breweries", breweries)
+  console.log("app users", users)
 
   return (
     
    <div className="App">
   
-       <Discover breweries={breweries} setBreweries={setBreweries} />
+       <Discover 
+       breweries={breweries} 
+       setBreweries={setBreweries} 
+       reviews = {reviews}
+       setReviews = {setReviews}
+       users={users}
+       />
       
    </div>
   );

@@ -14,7 +14,7 @@ export default function SearchBar(props) {
     type="text"
     placeholder="Search"
     value={props.searchText}
-    onChange={e => props.changeSearchText(e.target.value)}
+    onChange={e => props.setSearchText(e.target.value)}
     
     />
   
