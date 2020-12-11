@@ -11,12 +11,12 @@ export default function Login(props) {
 
   const handledChange = (e) => {
     e.preventDefault()
-    setUser({[e.target.name]:e.target.value})
+    setUser({...user,[e.target.name]:e.target.value})
       
     }
 
 
-  console.log(user)
+  console.log(props)
   
   
   return (
@@ -55,8 +55,8 @@ export default function Login(props) {
               <Button 
               content='submit' 
               value='Sign In' 
-              onSubmit={
-                setUser(user)
+              onClick={
+                () => props.setUser(user)
                 } />
             </Form>
           </Grid.Column>

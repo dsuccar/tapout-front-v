@@ -45,7 +45,7 @@ export default function App() { {
   }
 
   const setUser = (user) =>{
-  console.log(user)
+  console.log("the user that youve been waiting for",user)
   }
 
   useEffect(fetchCalls, [])
