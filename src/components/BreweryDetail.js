@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {Header,Comment} from "semantic-ui-react"
 
 export default function BreweryDetail(props){
-console.log("brewery Detail users",props.users)
+console.log("Whats happening with brew detail?",props)
   return (
 
     <div>
