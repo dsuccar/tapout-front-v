@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
-import {Route,Switch, Link, useHistory} from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 
 import SearchBar from './components/SearchBar'
 import ReviewEdit from './components/ReviewEdit'
@@ -8,6 +8,7 @@ import BreweriesList from './components/BreweriesList'
 import BreweryDetail from './components/BreweryDetail'
 import Discover from "./components/Discover"
 import NavBar from './components/NavBar'
+import HomePage from './components/HomePage'
 // import Login from './components/Login'
 
 
@@ -25,7 +26,7 @@ export default function App() { {
 
 
 
-  const fetchCalls = () => {
+  useEffect(()=> {
     fetch(`http://localhost:3000/breweries`)
     .then(res => res.json())
     .then(breweries => {
@@ -41,6 +42,7 @@ export default function App() { {
     .then(users => {
       setUsers(users)
     })
+  },[])
 
   // }
 
@@ -62,12 +64,6 @@ export default function App() { {
   //   )
   //   )
 
-  }
-
-  useEffect(fetchCalls, [])
-
-
- 
 
   useEffect(() =>{
     setFilteredBreweries( breweries.filter(b =>{
@@ -77,7 +73,7 @@ export default function App() { {
     ) 
       },[searchText, breweries])
   
-      console.log("loginUser",loginUser)
+      console.log("app")
     
 
 
@@ -89,6 +85,12 @@ export default function App() { {
         {/* <Route exact path='/login' render={()=>{
           return <Login loginUser={loginUser} setUser={setUser} />
         }}/> */}
+        <Route
+          exact path="/"
+          render={() => (
+           <HomePage/>
+          )} 
+           />
 
         <Route exact path='/discover' render={()=>{
           return <Discover 
@@ -109,7 +111,7 @@ export default function App() { {
 
         
         <Route
-          exact path="/"
+          exact path="/breweries"
           render={() => (
             <div >
               <SearchBar searchText= {searchText} setSearchText={setSearchText}/>
