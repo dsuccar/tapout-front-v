@@ -6,7 +6,7 @@ import {Button} from 'semantic-ui-react'
   
   export default function NavBar(props) {
   
-    console.log("List Users",props.loginUser)
+    // console.log("List Users",props.loginUser)
   
     return (
     
@@ -16,10 +16,10 @@ import {Button} from 'semantic-ui-react'
       </h1>
   
       <div>
-      <Link className="item" to={`/login`}>
+      {/* <Link className="item" to={`/login`}>
         
       <Button>ClICK ON THIs ShIT</Button>
-      </Link>
+      </Link> */}
       </div>
         
         

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
-import {Route,Switch, Link,} from "react-router-dom"
+import {Route,Switch, Link, useHistory} from "react-router-dom"
 
 import SearchBar from './components/SearchBar'
 import ReviewEdit from './components/ReviewEdit'
@@ -8,7 +8,7 @@ import BreweriesList from './components/BreweriesList'
 import BreweryDetail from './components/BreweryDetail'
 import Discover from "./components/Discover"
 import NavBar from './components/NavBar'
-import Login from './components/Login'
+// import Login from './components/Login'
 
 
 
@@ -16,9 +16,9 @@ export default function App() { {
 
  
   const [breweries, setBreweries] = useState([])
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState(null)
   const [reviews, setReviews] = useState([])
-  const [loginUser, setLoginUser] = useState(null)
+  const [loginUser, setLoginUser] = useState({})
   const [searchText, setSearchText] = useState("")
   const [filteredBreweries, setFilteredBreweries] = useState([])
 
@@ -42,15 +42,32 @@ export default function App() { {
       setUsers(users)
     })
 
-  }
+  // }
 
-  const setUser = (user) =>{
-  console.log("the user that youve been waiting for",user)
+  // const setUser = (loginInfo) =>{
+    
+  // fetch("http://localhost:3000/users")
+  // .then(res => res.json())
+  // .then(allUsers => 
+  //   allUsers.forEach(
+  //     user => {
+  //       if(user.username === loginInfo.username && user.password.toString() === loginInfo.password.toString()){
+  //         setLoginUser({user})
+
+  //         console.log("here to test")
+  //       } else {
+  //         console.log(user.username, loginInfo.username,user.password,loginInfo.password)
+  //       }
+  //     }
+  //   )
+  //   )
+
   }
 
   useEffect(fetchCalls, [])
 
 
+ 
 
   useEffect(() =>{
     setFilteredBreweries( breweries.filter(b =>{
@@ -60,15 +77,18 @@ export default function App() { {
     ) 
       },[searchText, breweries])
   
+      console.log("loginUser",loginUser)
+    
+
 
   return (
     <div>
       <NavBar />
 
       <Switch>
-        <Route exact path='/login' render={()=>{
+        {/* <Route exact path='/login' render={()=>{
           return <Login loginUser={loginUser} setUser={setUser} />
-        }}/>
+        }}/> */}
 
         <Route exact path='/discover' render={()=>{
           return <Discover 
@@ -78,11 +98,12 @@ export default function App() { {
           setReviews = {setReviews}
           users={users}/>
         }}/>
-    
-    <Route
+              <Route
           exact path="/breweries/:breweryId"
           render={()=>(
-            <BreweryDetail breweries = {breweries} reviews = {reviews} users={users} />
+            <BreweryDetail breweries = {breweries} 
+                           reviews = {reviews} 
+                           users={users} />
           )}
         />
 
@@ -96,6 +117,11 @@ export default function App() { {
             </div>
           )}
         />
+    
+ 
+
+        
+      
         <Route  path="/reviews/:reviewId/edit" render={() => (
           <ReviewEdit />
         )}/>
