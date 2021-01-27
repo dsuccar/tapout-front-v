@@ -13,7 +13,7 @@ import HomePage from './components/HomePage'
 
 
 
-export default function App() { {
+export default function App() { 
 
  
   const [breweries, setBreweries] = useState([])
@@ -22,6 +22,7 @@ export default function App() { {
   const [loginUser, setLoginUser] = useState({})
   const [searchText, setSearchText] = useState("")
   const [filteredBreweries, setFilteredBreweries] = useState([])
+  const [selectedReview, setSelectedReview] = useState(null)
 
 
 
@@ -63,7 +64,9 @@ export default function App() { {
   //     }
   //   )
   //   )
-
+  function passReview(review){
+    setSelectedReview(review)
+  }
 
   useEffect(() =>{
     setFilteredBreweries( breweries.filter(b =>{
@@ -73,7 +76,25 @@ export default function App() { {
     ) 
       },[searchText, breweries])
   
-      console.log("app")
+
+  function updateReviewText(e,text){
+    e.preventDefault()
+      fetch(`http://localhost:3000/reviews/${selectedReview.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type" : "application/json",
+          "Accept": "application/json"
+          },
+        body: JSON.stringify(text)
+        }
+        ).then(res => res.json())
+     
+       
+      
+      
+  }
+
+      
     
 
 
@@ -91,7 +112,20 @@ export default function App() { {
            <HomePage/>
           )} 
            />
+        
 
+        <Route
+          exact path="/breweries"
+          render={() => (
+            <div >
+              <SearchBar searchText= {searchText} setSearchText={setSearchText}/>
+              <BreweriesList breweries={filteredBreweries} reviews = {reviews} users={users}/>
+            </div>
+          )}
+        />
+
+
+props.users.find(user => user.id === review.user_id)
         <Route exact path='/discover' render={()=>{
           return <Discover 
           breweries={breweries} 
@@ -105,27 +139,13 @@ export default function App() { {
           render={()=>(
             <BreweryDetail breweries = {breweries} 
                            reviews = {reviews} 
-                           users={users} />
+                           users = {users} 
+                           passReview = {passReview}/>
           )}
         />
 
-        
-        <Route
-          exact path="/breweries"
-          render={() => (
-            <div >
-              <SearchBar searchText= {searchText} setSearchText={setSearchText}/>
-              <BreweriesList breweries={filteredBreweries} reviews = {reviews} users={users}/>
-            </div>
-          )}
-        />
-    
- 
-
-        
-      
         <Route  path="/reviews/:reviewId/edit" render={() => (
-          <ReviewEdit />
+          <ReviewEdit review = {selectedReview} updateReviewText = {updateReviewText}/>
         )}/>
       
                 
@@ -135,7 +155,7 @@ export default function App() { {
   </div>
   )
 }
-}
+
 
     
 

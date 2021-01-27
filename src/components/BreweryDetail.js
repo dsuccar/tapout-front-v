@@ -7,6 +7,7 @@ export default function BreweryDetail(props){
 
 const [brewery, setBrewery] = useState()
 const [reviews, setReviews] = useState()
+const [user, setUser] = useState()
 
 
 
@@ -19,17 +20,12 @@ const [reviews, setReviews] = useState()
       // find reviews that belong to spec brewery
   const reviewIds = props.reviews.filter(review=> review.brewery_id == findBrewery.id)
 
-
-
-
-
+      // set brewery, review
   return setBrewery(findBrewery), setReviews(reviewIds)
-
-
 
 },[])
 
-console.log("testing", reviews)
+
 
   return  ( !brewery ? null:(
  
@@ -53,7 +49,7 @@ console.log("testing", reviews)
         </Comment.Metadata>
         <Comment.Text>{review.text}</Comment.Text>
         <Link to={`/reviews/${review.id}/edit`}>
-          <button className="ui button">Edit</button>
+          <button onClick={() => props.passReview(review)} className="ui button">Edit</button>
         </Link>
       </Comment.Content>
     </Comment>
