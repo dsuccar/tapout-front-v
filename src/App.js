@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Switch } from "react-router-dom"
 
 import SearchBar from './components/SearchBar'
-import ReviewEdit from './components/ReviewEdit'
+import ReviewDetail from './components/ReviewDetail'
 import BreweriesList from './components/BreweriesList'
 import BreweryDetail from './components/BreweryDetail'
 import Discover from "./components/Discover"
@@ -43,30 +43,10 @@ export default function App() {
     .then(users => {
       setUsers(users)
     })
-  },[])
+  },[selectedReview])
 
-  // }
 
-  // const setUser = (loginInfo) =>{
-    
-  // fetch("http://localhost:3000/users")
-  // .then(res => res.json())
-  // .then(allUsers => 
-  //   allUsers.forEach(
-  //     user => {
-  //       if(user.username === loginInfo.username && user.password.toString() === loginInfo.password.toString()){
-  //         setLoginUser({user})
 
-  //         console.log("here to test")
-  //       } else {
-  //         console.log(user.username, loginInfo.username,user.password,loginInfo.password)
-  //       }
-  //     }
-  //   )
-  //   )
-  function passReview(review){
-    setSelectedReview(review)
-  }
 
   useEffect(() =>{
     setFilteredBreweries( breweries.filter(b =>{
@@ -78,7 +58,7 @@ export default function App() {
   
 
   function updateReviewText(e,text){
-    e.preventDefault()
+  e.preventDefault()
       fetch(`http://localhost:3000/reviews/${selectedReview.id}`, {
         method: "PATCH",
         headers: {
@@ -88,10 +68,12 @@ export default function App() {
         body: JSON.stringify(text)
         }
         ).then(res => res.json())
-     
-       
-      
-      
+       .then(rev => setSelectedReview(rev))
+ 
+  }
+
+  function addReview(){
+console.log("ADD REVIEWS")
   }
 
       
@@ -140,12 +122,12 @@ props.users.find(user => user.id === review.user_id)
             <BreweryDetail breweries = {breweries} 
                            reviews = {reviews} 
                            users = {users} 
-                           passReview = {passReview}/>
+                           setSelectedReview = {setSelectedReview}/>
           )}
         />
 
         <Route  path="/reviews/:reviewId/edit" render={() => (
-          <ReviewEdit review = {selectedReview} updateReviewText = {updateReviewText}/>
+          <ReviewDetail review = {selectedReview} updateReviewText = {updateReviewText}/>
         )}/>
       
                 

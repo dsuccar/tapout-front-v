@@ -34,6 +34,9 @@ const [user, setUser] = useState()
    
     <Comment.Group>
     <Header as='h1'>{brewery.name}</Header>
+      <Button>
+        Leave A Review
+      </Button>
     <Header as='h3' dividing>
       Reviews
     </Header>
@@ -49,7 +52,7 @@ const [user, setUser] = useState()
         </Comment.Metadata>
         <Comment.Text>{review.text}</Comment.Text>
         <Link to={`/reviews/${review.id}/edit`}>
-          <button onClick={() => props.passReview(review)} className="ui button">Edit</button>
+          <button onClick={() => props.setSelectedReview(review)} className="ui button">Edit</button>
         </Link>
       </Comment.Content>
     </Comment>
