@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import {Header,Comment} from "semantic-ui-react"
+import {Header,Comment, Button} from "semantic-ui-react"
 
 export default function BreweryDetail(props){
 
@@ -9,7 +9,7 @@ const [brewery, setBrewery] = useState()
 const [reviews, setReviews] = useState()
 const [user, setUser] = useState()
 
-
+// console.log("brewery detail", props)
 
     useEffect(()=> {
       // set specific brewery

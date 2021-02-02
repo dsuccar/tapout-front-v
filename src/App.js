@@ -43,7 +43,15 @@ export default function App() {
     .then(users => {
       setUsers(users)
     })
-  },[selectedReview])
+  },[])
+
+  const getReviews = ()=> {
+    fetch(`http://localhost:3000/reviews`)
+    .then(res => res.json())
+    .then(reviews => {
+      setReviews(reviews)
+    })
+  }
 
 
 
@@ -69,6 +77,7 @@ export default function App() {
         }
         ).then(res => res.json())
        .then(rev => setSelectedReview(rev))
+       console.log("selected REview", selectedReview, reviews)
  
   }
 
@@ -119,6 +128,7 @@ props.users.find(user => user.id === review.user_id)
               <Route
           exact path="/breweries/:breweryId"
           render={()=>(
+
             <BreweryDetail breweries = {breweries} 
                            reviews = {reviews} 
                            users = {users} 

@@ -1,11 +1,21 @@
 
 import React, { useState } from "react";
 import { Form,  Button } from "semantic-ui-react"
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 
 export default function ReviewDetail(props){
 
   const [text, setText] = useState(props.review.text)
+
+  const history = useHistory()
+
+  const handleHistory = () => {
+    history.push(
+      `/breweries/${props.review.id}`
+   
+    )
+  }
 
 
 
@@ -16,7 +26,8 @@ export default function ReviewDetail(props){
     }
   
     props.updateReviewText(e, info)
- 
+    handleHistory()
+    console.log("props.review",props.review)
   }
   return (
   
@@ -33,15 +44,16 @@ export default function ReviewDetail(props){
             onChange={(e) => setText(e.target.value)}  />
     </Form.Field>
 
-    {/* <Link to={`/breweries/${props.review.brewery_id}`}> */}
-      <Button onClick={(e)=> props.handleChange(e,text)} type='submit'>
+    
+      <Button onClick={(e)=> handleChange(e,text)} type='submit'>
         Submit
       </Button>
-      
-      {/* <Button onClick={(e)=> props.handleDelete(e,text)}>
-        Delete
-      </Button> */}
-    {/* </Link> */}
+
+
+      {/* {/* <Button onClick={(e)=> props.handleDelete(e,text)}> */}
+        {/* Delete */}
+      {/* </Button> */} 
+  
 
   </Form>  
 
