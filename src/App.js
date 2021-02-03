@@ -43,15 +43,7 @@ export default function App() {
     .then(users => {
       setUsers(users)
     })
-  },[])
-
-  const getReviews = ()=> {
-    fetch(`http://localhost:3000/reviews`)
-    .then(res => res.json())
-    .then(reviews => {
-      setReviews(reviews)
-    })
-  }
+  },[selectedReview])
 
 
 
@@ -76,8 +68,8 @@ export default function App() {
         body: JSON.stringify(text)
         }
         ).then(res => res.json())
-       .then(rev => setSelectedReview(rev))
-       console.log("selected REview", selectedReview, reviews)
+       .then(rev => console.log("review", rev))
+   
  
   }
 

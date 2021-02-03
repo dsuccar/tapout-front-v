@@ -27,7 +27,7 @@ export default function ReviewDetail(props){
   
     props.updateReviewText(e, info)
     handleHistory()
-    console.log("props.review",props.review)
+    
   }
   return (
   
