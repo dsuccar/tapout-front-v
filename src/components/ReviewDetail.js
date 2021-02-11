@@ -9,10 +9,11 @@ export default function ReviewDetail(props){
   const [text, setText] = useState(props.review.text)
 
   const history = useHistory()
+  
 
   const handleHistory = () => {
     history.push(
-      `/breweries/${props.review.id}`
+      `/`
    
     )
   }
@@ -33,8 +34,6 @@ export default function ReviewDetail(props){
   
   <div>
   <Form >
-    
-    
 
     <Form.Field>
       <label>Review:</label>

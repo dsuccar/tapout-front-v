@@ -22,12 +22,16 @@ export default function App() {
   const [loginUser, setLoginUser] = useState({})
   const [searchText, setSearchText] = useState("")
   const [filteredBreweries, setFilteredBreweries] = useState([])
+  const [loading, setLoading] = useState(false)
+
   const [selectedReview, setSelectedReview] = useState(null)
+  const [selectedBrewery, setSelectedBrewery] = useState(null)
 
 
 
 
-  useEffect(()=> {
+
+  useEffect(() => {
     fetch(`http://localhost:3000/breweries`)
     .then(res => res.json())
     .then(breweries => {
@@ -43,8 +47,7 @@ export default function App() {
     .then(users => {
       setUsers(users)
     })
-  },[selectedReview])
-
+  },[setSelectedReview])
 
 
 
@@ -57,6 +60,9 @@ export default function App() {
       },[searchText, breweries])
   
 
+
+
+
   function updateReviewText(e,text){
   e.preventDefault()
       fetch(`http://localhost:3000/reviews/${selectedReview.id}`, {
@@ -68,14 +74,23 @@ export default function App() {
         body: JSON.stringify(text)
         }
         ).then(res => res.json())
-       .then(rev => console.log("review", rev))
-   
- 
-  }
+       .then(rev =>  setSelectedReview(rev))
+      }
+// {
+        
+        
+        //  const oldReview = reviews.find(review => review.id === rev.id)
+        //  oldReview.text = rev.text
+        //  selectedReview.text=rev.text
+         
+         
+      //  })
+      
+  
+  console.log("app reviews", selectedReview)
 
-  function addReview(){
-console.log("ADD REVIEWS")
-  }
+
+
 
       
     
@@ -101,14 +116,31 @@ console.log("ADD REVIEWS")
           exact path="/breweries"
           render={() => (
             <div >
-              <SearchBar searchText= {searchText} setSearchText={setSearchText}/>
-              <BreweriesList breweries={filteredBreweries} reviews = {reviews} users={users}/>
+              <SearchBar 
+              searchText= {searchText} 
+              setSearchText={setSearchText}/>
+
+              <BreweriesList 
+              breweries={filteredBreweries} 
+              reviews = {reviews} 
+              users={users} 
+              />
             </div>
           )}
         />
+        <Route
+          exact path="/breweries/:breweryId"
+          render={()=>(
 
+            <BreweryDetail 
+            breweries = {breweries} 
+            reviews = {reviews} 
+            users = {users} 
+            setSelectedReview = {setSelectedReview}
+            selectedBrewery={selectedBrewery}/>
+          )}
+        />
 
-props.users.find(user => user.id === review.user_id)
         <Route exact path='/discover' render={()=>{
           return <Discover 
           breweries={breweries} 
@@ -117,19 +149,14 @@ props.users.find(user => user.id === review.user_id)
           setReviews = {setReviews}
           users={users}/>
         }}/>
-              <Route
-          exact path="/breweries/:breweryId"
-          render={()=>(
-
-            <BreweryDetail breweries = {breweries} 
-                           reviews = {reviews} 
-                           users = {users} 
-                           setSelectedReview = {setSelectedReview}/>
-          )}
-        />
+              
 
         <Route  path="/reviews/:reviewId/edit" render={() => (
-          <ReviewDetail review = {selectedReview} updateReviewText = {updateReviewText}/>
+          <ReviewDetail 
+          review = {selectedReview}
+          updateReviewText = {updateReviewText} 
+          loading = {loading} 
+          setloading = {setLoading}/>
         )}/>
       
                 
