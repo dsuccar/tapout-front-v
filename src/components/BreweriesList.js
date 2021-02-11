@@ -9,7 +9,7 @@ export default function BreweryList(props) {
 
   return (
     props.breweries.map(b=>
-      <Link key={b.id} className="item" to={`/breweries/${b.id}`} >
+      <Link  key={b.id} className="item" to={`/breweries/${b.id}`} onClick = {() => props.setSelectedBrewery(b)}>
       <div>
       <h1>{b.name} </h1>  
      <h2>{b.city}</h2>

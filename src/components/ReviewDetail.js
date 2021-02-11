@@ -3,58 +3,57 @@ import React, { useState } from "react";
 import { Form,  Button } from "semantic-ui-react"
 import { useHistory } from "react-router-dom";
 
+import ReviewForm from './ReviewForm'
+
+
 
 export default function ReviewDetail(props){
 
-  const [text, setText] = useState(props.review.text)
+ 
 
   const history = useHistory()
   
 
-  const handleHistory = () => {
-    history.push(
-      `/`
-   
-    )
-  }
-
-
-
   function handleChange(e,text){
 
-   const info = {
-      text: text
-    }
-  
-    props.updateReviewText(e, info)
-    handleHistory()
-    
+    const info = {text: text}
+      fetchUpdatedText(e,info)
+      history.push(
+        `/breweries/${props.selectedReview.id}`
+      )
   }
+
+
+  function fetchUpdatedText(e,info){
+    
+
+  e.preventDefault()
+  fetch(`http://localhost:3000/reviews/${props.selectedReview.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type" : "application/json",
+      "Accept": "application/json"
+      },
+    body: JSON.stringify(info)
+    }
+    ).then(res => res.json())
+   .then(rev => {
+
+     const oldReview = props.reviews.find(review=> review.id === rev.id)
+     oldReview.text = rev.text
+
+    props.setSelectedReview(rev)
+   })}
+
+
+
+
+console.log("SelectedReview",props.selectedReview)
+
   return (
   
   <div>
-  <Form >
-
-    <Form.Field>
-      <label>Review:</label>
-      <Form.Input className="ui field"
-            name="Text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}  />
-    </Form.Field>
-
-    
-      <Button onClick={(e)=> handleChange(e,text)} type='submit'>
-        Submit
-      </Button>
-
-
-      {/* {/* <Button onClick={(e)=> props.handleDelete(e,text)}> */}
-        {/* Delete */}
-      {/* </Button> */} 
-  
-
-  </Form>  
+  <ReviewForm handleChange={handleChange} selectedReview = {props.selectedReview}/>
 
 </div>
         

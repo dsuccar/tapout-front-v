@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {Header,Comment, Button} from "semantic-ui-react"
 
 export default function BreweryDetail(props){
@@ -25,7 +25,13 @@ const [user, setUser] = useState()
 
 },[])
 
+const history = useHistory()
 
+  function handleCreateReview(){
+    history.push(
+      `/reviews/new`
+    )
+  }
 
   return  ( !brewery ? null:(
  
@@ -34,7 +40,7 @@ const [user, setUser] = useState()
    
     <Comment.Group>
     <Header as='h1'>{brewery.name}</Header>
-      <Button>
+      <Button onClick = {handleCreateReview}>
         Leave A Review
       </Button>
     <Header as='h3' dividing>

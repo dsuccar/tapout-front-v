@@ -9,6 +9,7 @@ import BreweryDetail from './components/BreweryDetail'
 import Discover from "./components/Discover"
 import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
+import CreateReview from './components/CreateReview'
 // import Login from './components/Login'
 
 
@@ -19,13 +20,14 @@ export default function App() {
   const [breweries, setBreweries] = useState([])
   const [users, setUsers] = useState(null)
   const [reviews, setReviews] = useState([])
-  const [loginUser, setLoginUser] = useState({})
+
   const [searchText, setSearchText] = useState("")
   const [filteredBreweries, setFilteredBreweries] = useState([])
   const [loading, setLoading] = useState(false)
 
   const [selectedReview, setSelectedReview] = useState(null)
-  const [selectedBrewery, setSelectedBrewery] = useState(null)
+  const [selectedBrewery,setSelectedBrewery] =useState(null)
+
 
 
 
@@ -47,7 +49,7 @@ export default function App() {
     .then(users => {
       setUsers(users)
     })
-  },[setSelectedReview])
+  },[])
 
 
 
@@ -63,31 +65,9 @@ export default function App() {
 
 
 
-  function updateReviewText(e,text){
-  e.preventDefault()
-      fetch(`http://localhost:3000/reviews/${selectedReview.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type" : "application/json",
-          "Accept": "application/json"
-          },
-        body: JSON.stringify(text)
-        }
-        ).then(res => res.json())
-       .then(rev =>  setSelectedReview(rev))
-      }
-// {
-        
-        
-        //  const oldReview = reviews.find(review => review.id === rev.id)
-        //  oldReview.text = rev.text
-        //  selectedReview.text=rev.text
-         
-         
-      //  })
-      
+
+
   
-  console.log("app reviews", selectedReview)
 
 
 
@@ -117,17 +97,19 @@ export default function App() {
           render={() => (
             <div >
               <SearchBar 
-              searchText= {searchText} 
-              setSearchText={setSearchText}/>
+                searchText= {searchText} 
+                setSearchText={setSearchText}/>
 
               <BreweriesList 
-              breweries={filteredBreweries} 
-              reviews = {reviews} 
-              users={users} 
+                breweries={filteredBreweries} 
+                reviews = {reviews} 
+                users={users}
+                setSelectedBrewery ={setSelectedBrewery} 
               />
             </div>
           )}
         />
+
         <Route
           exact path="/breweries/:breweryId"
           render={()=>(
@@ -136,8 +118,7 @@ export default function App() {
             breweries = {breweries} 
             reviews = {reviews} 
             users = {users} 
-            setSelectedReview = {setSelectedReview}
-            selectedBrewery={selectedBrewery}/>
+            setSelectedReview = {setSelectedReview}/>
           )}
         />
 
@@ -153,10 +134,20 @@ export default function App() {
 
         <Route  path="/reviews/:reviewId/edit" render={() => (
           <ReviewDetail 
-          review = {selectedReview}
-          updateReviewText = {updateReviewText} 
+          selectedReview = {selectedReview}
           loading = {loading} 
-          setloading = {setLoading}/>
+          setloading = {setLoading}
+          setSelectedReview = {setSelectedReview}
+          reviews = {reviews}/>
+        )}/>
+
+        <Route  path="/reviews/new" render={() => (
+          <CreateReview
+            selectedBrewery ={selectedBrewery}
+            reviews = {reviews}
+            setReviews = {setReviews}
+          />
+          
         )}/>
       
                 

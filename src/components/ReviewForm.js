@@ -1,23 +1,18 @@
 
 import React, { useState } from "react";
 import { Form,  Button } from "semantic-ui-react"
-import { Link } from "react-router-dom";
+
 
 export default function ReviewForm(props){
 
-  const [text, setText] = useState(props.review.text)
+  const [text, setText] = useState(props.selectedReview.text)
 
-
-
-  function handleChange(e,text){
-
-   const info = {
-      text: text
-    }
-  
-    props.updateReviewText(e, info)
  
-  }
+
+
+
+
+    
   return (
   
   <div>
@@ -31,7 +26,7 @@ export default function ReviewForm(props){
     </Form.Field>
 
     {/* <Link to={`/breweries/${props.review.brewery_id}`}> */}
-      <Button onClick={(e)=> handleChange(e,text)} type='submit'>
+      <Button onClick={(e)=> props.handleChange(e,text)} type='button'>
         Submit
       </Button>
     {/* </Link> */}
