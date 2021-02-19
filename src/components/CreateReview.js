@@ -39,7 +39,11 @@ export default function CreateReview(props) {
     body: JSON.stringify(info)
     }
     ).then(res => res.json())
-   .then(rev => props.setReviews([...props.reviews, rev]))
+   .then(rev =>{
+
+    props.setReviews([...props.reviews, rev])
+
+   } )
 
    
 

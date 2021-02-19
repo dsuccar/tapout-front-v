@@ -118,7 +118,10 @@ export default function App() {
             breweries = {breweries} 
             reviews = {reviews} 
             users = {users} 
-            setSelectedReview = {setSelectedReview}/>
+            setSelectedReview = {setSelectedReview}
+            setSelectedBrewery ={setSelectedBrewery} 
+            selectedBrewery = {selectedBrewery}
+            />
           )}
         />
 

@@ -24,9 +24,10 @@ export default function ReviewDetail(props){
   }
 
 
-  function fetchUpdatedText(e,info){
-    
 
+
+  function fetchUpdatedText(e,info){
+   
   e.preventDefault()
   fetch(`http://localhost:3000/reviews/${props.selectedReview.id}`, {
     method: "PATCH",
@@ -46,15 +47,25 @@ export default function ReviewDetail(props){
    })}
 
 
+  function handleDelete(){
+    fetch(`http://localhost:3000/reviews/${props.selectedReview.id}`,{
+      method: "DELETE"
+    })
+ history.push(
+        `/breweries/${props.selectedReview.id}`
+      )
+    console.log("theseare theprops for the review", props)
+  }
 
 
-console.log("SelectedReview",props.selectedReview)
+
+
 
   return (
   
   <div>
   <ReviewForm handleChange={handleChange} selectedReview = {props.selectedReview}/>
-
+  <Button onClick = {handleDelete}>Delete</Button>
 </div>
         
          

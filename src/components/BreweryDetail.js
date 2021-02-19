@@ -2,28 +2,12 @@
 import React, {useState, useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import {Header,Comment, Button} from "semantic-ui-react"
+import ReviewList from './ReviewList'
 
 export default function BreweryDetail(props){
 
-const [brewery, setBrewery] = useState()
-const [reviews, setReviews] = useState()
-const [user, setUser] = useState()
 
-// console.log("brewery detail", props)
 
-    useEffect(()=> {
-      // set specific brewery
-  const n = window.location.pathname.lastIndexOf('/');
-  let breweryId = window.location.pathname.substring(n + 1)
-  let findBrewery = props.breweries.find(brewery => brewery.id.toString() === breweryId.toString())
-
-      // find reviews that belong to spec brewery
-  const reviewIds = props.reviews.filter(review=> review.brewery_id == findBrewery.id)
-
-      // set brewery, review
-  return setBrewery(findBrewery), setReviews(reviewIds)
-
-},[])
 
 const history = useHistory()
 
@@ -33,41 +17,28 @@ const history = useHistory()
     )
   }
 
-  return  ( !brewery ? null:(
+  return  ( !props.selectedBrewery ? null:(
  
     <div>
      
    
     <Comment.Group>
-    <Header as='h1'>{brewery.name}</Header>
+    <Header as='h1'>{props.selectedBrewery.name}</Header>
       <Button onClick = {handleCreateReview}>
         Leave A Review
       </Button>
     <Header as='h3' dividing>
       Reviews
     </Header>
-   
-      {reviews.map(review=>
+
+  <ReviewList setSelectedReview = {props.setSelectedReview} selectedBrewery={props.selectedBrewery} users = {props.users} reviews={props.reviews}/>
      
-      <Comment key = {review.id}>
-      <Comment.Content> 
-        <Comment.Author as='a'> {props.users.find(user => user.id === review.user_id).username}</Comment.Author>
-        
-        <Comment.Metadata>
-          <div>{review.created_at}</div>
-        </Comment.Metadata>
-        <Comment.Text>{review.text}</Comment.Text>
-        <Link to={`/reviews/${review.id}/edit`}>
-          <button onClick={() => props.setSelectedReview(review)} className="ui button">Edit</button>
-        </Link>
-      </Comment.Content>
-    </Comment>
-         )}
   </Comment.Group> 
 
     </div>
     
-))}
+))
+}
       
     
       

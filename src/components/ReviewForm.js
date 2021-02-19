@@ -25,11 +25,10 @@ export default function ReviewForm(props){
             onChange={(e) => setText(e.target.value)}  />
     </Form.Field>
 
-    {/* <Link to={`/breweries/${props.review.brewery_id}`}> */}
       <Button onClick={(e)=> props.handleChange(e,text)} type='button'>
         Submit
       </Button>
-    {/* </Link> */}
+
 
   </Form>  
 
