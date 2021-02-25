@@ -1,18 +1,14 @@
 
 import React, {useState, useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
-import {Header,Comment, Button} from "semantic-ui-react"
+import {Comment} from "semantic-ui-react"
 
 export default function ReviewList(props){
 
-const [brewery, setBrewery] = useState()
-const [reviews, setReviews] = useState()
-const [user, setUser] = useState()
-
-// console.log("brewery detail", props)
 
 
-const history = useHistory()
+
+
 
   
 

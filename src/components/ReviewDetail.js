@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { Form,  Button } from "semantic-ui-react"
+import React from "react";
+import {  Button } from "semantic-ui-react"
 import { useHistory } from "react-router-dom";
 
 import ReviewForm from './ReviewForm'
@@ -50,14 +50,12 @@ export default function ReviewDetail(props){
   function handleDelete(){
     fetch(`http://localhost:3000/reviews/${props.selectedReview.id}`,{
       method: "DELETE"
-    })
+    }).then(props.setReviews(props.reviews.filter(review => review.id !== props.selectedReview.id)))
+    
  history.push(
         `/breweries/${props.selectedReview.id}`
       )
-    console.log("theseare theprops for the review", props)
   }
-
-
 
 
 

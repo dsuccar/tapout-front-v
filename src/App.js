@@ -141,6 +141,7 @@ export default function App() {
           loading = {loading} 
           setloading = {setLoading}
           setSelectedReview = {setSelectedReview}
+          setReviews={setReviews}
           reviews = {reviews}/>
         )}/>
 

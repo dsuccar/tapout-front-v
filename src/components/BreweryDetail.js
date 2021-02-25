@@ -1,6 +1,6 @@
 
-import React, {useState, useEffect} from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import {useHistory } from "react-router-dom";
 import {Header,Comment, Button} from "semantic-ui-react"
 import ReviewList from './ReviewList'
 
