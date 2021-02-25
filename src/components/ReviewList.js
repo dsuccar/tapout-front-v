@@ -10,7 +10,6 @@ export default function ReviewList(props){
 
 
 
-  
 
   return  ( !props.selectedBrewery ? null:(
  
@@ -27,9 +26,14 @@ export default function ReviewList(props){
           <div>{review.created_at}</div>
         </Comment.Metadata>
         <Comment.Text>{review.text}</Comment.Text>
-        <Link to={`/reviews/${review.id}/edit`}>
-          <button onClick={() => props.setSelectedReview(review)} className="ui button">Edit</button>
-        </Link>
+        {!!props.loggedIn && review.user_id === props.currentUser.id ?
+         <Link to={`/reviews/${review.id}/edit`}>
+         <button onClick={() => props.setSelectedReview(review)} className="ui button">Edit</button>
+       </Link>
+        :
+        null
+      }
+        
       </Comment.Content>
     </Comment>
          )}

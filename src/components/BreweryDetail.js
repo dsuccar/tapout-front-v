@@ -31,7 +31,13 @@ const history = useHistory()
       Reviews
     </Header>
 
-  <ReviewList setSelectedReview = {props.setSelectedReview} selectedBrewery={props.selectedBrewery} users = {props.users} reviews={props.reviews}/>
+  <ReviewList 
+  loggedIn = {props.loggedIn}
+  currentUser = {props.currentUser}
+  setSelectedReview = {props.setSelectedReview} 
+  selectedBrewery={props.selectedBrewery} 
+  users={props.users} 
+  reviews={props.reviews}/>
      
   </Comment.Group> 
 

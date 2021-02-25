@@ -10,20 +10,24 @@ import Discover from "./components/Discover"
 import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
 import CreateReview from './components/CreateReview'
+import Login from './components/Login'
 // import Login from './components/Login'
 
 
 
 export default function App() { 
 
- 
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState(
+    // id: 1, username:"Danny", password:"123"
+  )
+
   const [breweries, setBreweries] = useState([])
   const [users, setUsers] = useState(null)
   const [reviews, setReviews] = useState([])
 
   const [searchText, setSearchText] = useState("")
   const [filteredBreweries, setFilteredBreweries] = useState([])
-  const [loading, setLoading] = useState(false)
 
   const [selectedReview, setSelectedReview] = useState(null)
   const [selectedBrewery,setSelectedBrewery] =useState(null)
@@ -78,16 +82,29 @@ export default function App() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar loggedIn={loggedIn} currentUser={currentUser}  />
 
       <Switch>
         {/* <Route exact path='/login' render={()=>{
           return <Login loginUser={loginUser} setUser={setUser} />
         }}/> */}
+        
         <Route
           exact path="/"
           render={() => (
            <HomePage/>
+          )} 
+           />
+
+           <Route
+          exact path="/login"
+          render={() => (
+            <Login
+              loggedIn = {loggedIn}
+              setLoggedIn = {setLoggedIn}
+              currentUser = {currentUser}
+              setCurrentUser = {setCurrentUser} 
+              users = {users}/>
           )} 
            />
         
@@ -114,12 +131,12 @@ export default function App() {
           exact path="/breweries/:breweryId"
           render={()=>(
 
-            <BreweryDetail 
-            breweries = {breweries} 
+            <BreweryDetail
+            loggedIn ={loggedIn} 
+            currentUser = {currentUser}
             reviews = {reviews} 
             users = {users} 
             setSelectedReview = {setSelectedReview}
-            setSelectedBrewery ={setSelectedBrewery} 
             selectedBrewery = {selectedBrewery}
             />
           )}
@@ -138,8 +155,7 @@ export default function App() {
         <Route  path="/reviews/:reviewId/edit" render={() => (
           <ReviewDetail 
           selectedReview = {selectedReview}
-          loading = {loading} 
-          setloading = {setLoading}
+          loggedIn = {loggedIn}
           setSelectedReview = {setSelectedReview}
           setReviews={setReviews}
           reviews = {reviews}/>

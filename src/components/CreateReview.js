@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useHistory } from "react-router-dom";
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 
 
 import ReviewForm from './ReviewForm'
@@ -49,7 +49,6 @@ export default function CreateReview(props) {
 
   }
   
-  console.log("testing reviews", props.reviews)
 
   return (
 <div>

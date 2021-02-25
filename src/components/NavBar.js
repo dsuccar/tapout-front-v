@@ -25,6 +25,27 @@ import {Button, Grid} from 'semantic-ui-react'
           <Button>Breweries</Button>
         </Link>
       </Grid.Column>
+      <Grid.Column>
+ 
+      </Grid.Column>
+      <Grid.Column>
+ 
+      </Grid.Column>
+      <Grid.Column>
+      {( !props.loggedIn ? 
+    (  
+      <Link className="item" to={`/login`}>
+      <Button>Login</Button>
+    </Link>
+    )
+      :
+      (
+        <div>
+        {props.currentUser.username}
+        </div>
+     
+      ))}
+      </Grid.Column>
       
       </Grid.Row>
       </Grid>
