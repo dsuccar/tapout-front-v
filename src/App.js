@@ -166,6 +166,7 @@ export default function App() {
             selectedBrewery ={selectedBrewery}
             reviews = {reviews}
             setReviews = {setReviews}
+            currentUser = {currentUser}
           />
           
         )}/>

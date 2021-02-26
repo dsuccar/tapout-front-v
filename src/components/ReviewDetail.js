@@ -14,9 +14,7 @@ export default function ReviewDetail(props){
   const history = useHistory()
   
 
-  function handleChange(e,text){
-
-    const info = {text: text}
+  function handleChange(e,info){
       fetchUpdatedText(e,info)
       history.push(
         `/breweries/${props.selectedReview.id}`
@@ -42,6 +40,7 @@ export default function ReviewDetail(props){
 
      const oldReview = props.reviews.find(review=> review.id === rev.id)
      oldReview.text = rev.text
+     oldReview.rating = rev.rating
 
     props.setSelectedReview(rev)
    })}
@@ -62,7 +61,9 @@ export default function ReviewDetail(props){
   return (
   
   <div>
-  <ReviewForm handleChange={handleChange} selectedReview = {props.selectedReview}/>
+  <ReviewForm 
+    handleChange={handleChange} 
+    selectedReview = {props.selectedReview}/>
   <Button onClick = {handleDelete}>Delete</Button>
 </div>
         

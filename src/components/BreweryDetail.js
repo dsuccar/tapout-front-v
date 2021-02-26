@@ -24,9 +24,14 @@ const history = useHistory()
    
     <Comment.Group>
     <Header as='h1'>{props.selectedBrewery.name}</Header>
-      <Button onClick = {handleCreateReview}>
-        Leave A Review
-      </Button>
+    {!!props.loggedIn ?
+       <Button onClick = {handleCreateReview}>
+       Leave A Review
+     </Button>
+        :
+        null
+      }
+ 
     <Header as='h3' dividing>
       Reviews
     </Header>

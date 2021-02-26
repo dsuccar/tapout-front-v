@@ -12,7 +12,7 @@ import {Button, Grid} from 'semantic-ui-react'
  
       <Grid>
       <Grid.Row>
-        <Grid.Column width={10}>
+        <Grid.Column width={5}>
     
       <h1>
         "Please Drink & Thrive"
@@ -20,17 +20,12 @@ import {Button, Grid} from 'semantic-ui-react'
       </Grid.Column>
    
 
-      <Grid.Column>
-        <Link className="item" to={`/`}>
+      <Grid.Column width={5}>
+        <Link className="item" to={`/breweries`}>
           <Button>Breweries</Button>
         </Link>
       </Grid.Column>
-      <Grid.Column>
- 
-      </Grid.Column>
-      <Grid.Column>
- 
-      </Grid.Column>
+      
       <Grid.Column>
       {( !props.loggedIn ? 
     (  

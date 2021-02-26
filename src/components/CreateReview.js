@@ -13,15 +13,15 @@ export default function CreateReview(props) {
 
   
 
-  function handleChange(e,text){
-
-    const info = {
-      user_id: 1,
-      brewery_id: props.selectedBrewery.id,
-      text: text
+  function handleChange(e,info){
+    info = {
+      ...info,
+      user_id: props.currentUser.id,
+      brewery_id: props.selectedBrewery.id
     }
+  debugger
+ 
       createReview(e,info)
-      setOpen(true)
       history.push(
         `/breweries/${props.selectedBrewery.id}`
       )

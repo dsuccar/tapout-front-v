@@ -2,6 +2,8 @@
 import React, {useState, useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import {Comment} from "semantic-ui-react"
+import Ratings from 'react-ratings-declarative'
+
 
 export default function ReviewList(props){
 
@@ -20,6 +22,17 @@ export default function ReviewList(props){
      
       <Comment key = {review.id}>
       <Comment.Content> 
+        <Ratings
+          rating={review.rating}
+          widgetRatedColors="yellow"
+           >
+          <Ratings.Widget/>
+          <Ratings.Widget/>
+          <Ratings.Widget/>
+          <Ratings.Widget/>
+          <Ratings.Widget/>
+
+            </Ratings>
         <Comment.Author as='a'> {props.users.find(user => user.id === review.user_id).username}</Comment.Author>
         
         <Comment.Metadata>
